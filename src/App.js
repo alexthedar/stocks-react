@@ -2,16 +2,27 @@
 import React, { Component } from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import Layout from "./hoc/Layout";
-// import asyncComponent from "./hoc/asyncComponent";
-
+import asyncComponent from "./hoc/asyncComponent";
 import MarketTable from "./containers/market";
 
-class App extends Component {
 
+const asyncStockDetail = asyncComponent((() => {
+  return import('./containers/stock-detail')
+}));
+
+class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/" exact component={MarketTable} />
+        <Route path="/market" component={MarketTable} />
+        <Route path="/stock/:symbol" component={asyncStockDetail} />
+        <Route
+          exact
+          path="/"
+          render={() => {
+            <Redirect to="/market" />;
+          }}
+        />
         <Redirect to="/" />
       </Switch>
     );

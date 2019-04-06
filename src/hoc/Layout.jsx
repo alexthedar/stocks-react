@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { Component } from "react";
 import {
   Navbar,
@@ -7,50 +6,41 @@ import {
   Form,
   InputGroup,
   FormControl,
-  Button,
-  NavDropdown
+  Button
 } from "react-bootstrap";
 class Layout extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-  // toggleNavbar() {
-  //   this.setState({
-  //     collapsed: !this.state.collapsed
-  //   });
-  // }
-
   render() {
     return (
       <div>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="#features">Features</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
-              <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-            <Nav>
-              <Nav.Link href="#deets">More deets</Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                Dank memes
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
+        <Navbar
+          collapseOnSelect
+          expand="md"
+          bg="dark"
+          variant="dark"
+          fixed="top"
+        >
+          <Navbar.Brand target="_blank" href="https://github.com/alexthedar">
+            Alexthedar
+          </Navbar.Brand>
+          <Container>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/market">Market</Nav.Link>
+              </Nav>
+              <Form inline>
+                <InputGroup>
+                  <FormControl
+                    placeholder="Stock Symbol"
+                    aria-label="Stock Symbol"
+                  />
+                  <InputGroup.Append>
+                    <Button variant="outline-secondary">Find</Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              </Form>
+            </Navbar.Collapse>
+          </Container>
         </Navbar>
         <main>
           <Container>{this.props.children}</Container>
