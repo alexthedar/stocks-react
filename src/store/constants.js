@@ -1,0 +1,4 @@
+export const SET_MARKET_TOP ='SET_MARKET_TOP';
+export const SET_MARKET_LAST ='SET_MARKET_LAST';
+export const GET_MARKET_TOP ='GET_MARKET_TOP';
+export const GET_MARKET_LAST ='GET_MARKET_LAST';
