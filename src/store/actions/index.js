@@ -15,5 +15,10 @@ export {
   getSymbolTrades,
   getSymbolBook,
   getSymbolCompanyInfo,
-  getSymbolPrice
+  getSymbolPrice,
+  setStockSymbol
 } from "./stockDetailActions";
+
+export {
+  getRefSymbols
+} from './searchActions';

@@ -10,6 +10,7 @@ const initialState = {
   book: [],
   companyInfo: [],
   price: null,
+  stockSymbol: '',
 };
 
 const setSymbolQuotes = (state, action) =>
@@ -36,6 +37,9 @@ const setSymbolCompanyInfo = (state, action) =>
 const setSymbolPrice = (state, action) =>
   updateObject(state, { price: action.price });
 
+const setStockSymbol = (state, action) =>
+  updateObject(state, { stockSymbol: action.stockSymbol });
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case constants.SET_SYMBOL_QUOTES:
@@ -54,6 +58,8 @@ const reducer = (state = initialState, action) => {
       return setSymbolCompanyInfo(state, action);
     case constants.SET_SYMBOL_PRICE:
       return setSymbolPrice(state, action);
+    case constants.SET_STOCK_SYMBOL:
+      return setStockSymbol(state, action);
     default:
       return state;
   }

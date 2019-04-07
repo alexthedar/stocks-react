@@ -105,6 +105,13 @@ export const setSymbolPrice = price => {
   };
 };
 
+export const setStockSymbol = stockSymbol => {
+  return {
+    type: constants.SET_STOCK_SYMBOL,
+    stockSymbol
+  };
+};
+
 export const getSymbolQuotes = (symbol) => {
   console.log(symbol);
   return dispatch => {
