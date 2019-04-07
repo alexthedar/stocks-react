@@ -6,6 +6,21 @@ const api = axios.create({
 
 const throwErr = err => new Error(err);
 
+//
+// reference
+//
+
+export const refDataSymbols = () => {
+  return api
+    .get(`/ref-data/symbols`)
+    .then(res => res.data)
+    .catch(error => throwErr(error));
+};
+
+//
+// details
+//
+
 export const quotesForSymbol = symbol => {
   return api
     .get(`/stock/${symbol}/quote`)
@@ -34,29 +49,6 @@ export const chartForSymbol = (symbol, range) => {
     .catch(error => throwErr(error));
 };
 
-export const refDataSymbols = () => {
-  return api
-    .get(`/ref-data/symbols`)
-    .then(res => res.data)
-    .catch(error => throwErr(error));
-};
-
-export const topsData = symbol => {
-  const url = symbol ? `/tops?symbols=${symbol}` : `/tops`;
-  return api
-    .get(url)
-    .then(res => res.data)
-    .catch(error => throwErr(error));
-};
-
-export const lastData = symbol => {
-  const url = symbol ? `/tops/last?symbols=${symbol}` : `/tops/last`;
-  return api
-    .get(url)
-    .then(res => res.data)
-    .catch(error => throwErr(error));
-};
-
 export const tradesForSymbol = symbol => {
   return api
     .get(`/deep/trades?symbols=${symbol}`)
@@ -81,6 +73,26 @@ export const companyInfoForSymbol = symbol => {
 export const priceForSymbol = symbol => {
   return api
     .get(`/stock/${symbol}/price`)
+    .then(res => res.data)
+    .catch(error => throwErr(error));
+};
+
+//
+// market
+//
+
+export const topsData = symbol => {
+  const url = symbol ? `/tops?symbols=${symbol}` : `/tops`;
+  return api
+    .get(url)
+    .then(res => res.data)
+    .catch(error => throwErr(error));
+};
+
+export const lastData = symbol => {
+  const url = symbol ? `/tops/last?symbols=${symbol}` : `/tops/last`;
+  return api
+    .get(url)
     .then(res => res.data)
     .catch(error => throwErr(error));
 };

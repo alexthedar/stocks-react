@@ -1,14 +1,34 @@
 import React, { Component } from "react";
-import {
-  Navbar,
-  Container,
-  Nav,
-  Form,
-  InputGroup,
-  FormControl,
-  Button
-} from "react-bootstrap";
+import { Navbar, Container, Nav, Form } from "react-bootstrap";
+import { connect } from "react-redux";
+import * as actions from "../store/actions/index";
+
+import { SearchForm } from "../components/Search";
+
 class Layout extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchText: ""
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({
+      searchText: e.target.value
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const { loadSymbolQuotes } = this.props;
+    loadSymbolQuotes(this.state.searchText);
+  }
+
   render() {
     return (
       <div>
@@ -28,16 +48,11 @@ class Layout extends Component {
               <Nav className="mr-auto">
                 <Nav.Link href="/market">Market</Nav.Link>
               </Nav>
-              <Form inline>
-                <InputGroup>
-                  <FormControl
-                    placeholder="Stock Symbol"
-                    aria-label="Stock Symbol"
-                  />
-                  <InputGroup.Append>
-                    <Button variant="outline-secondary">Find</Button>
-                  </InputGroup.Append>
-                </InputGroup>
+              <Form inline onSubmit={this.handleSubmit}>
+                <SearchForm
+                  handleChange={this.handleChange}
+                  value={this.state.searchText}
+                />
               </Form>
             </Navbar.Collapse>
           </Container>
@@ -49,5 +64,13 @@ class Layout extends Component {
     );
   }
 }
+const mapDispatchToProps = dispatch => {
+  return {
+    loadSymbolQuotes: symbol => dispatch(actions.getSymbolQuotes(symbol))
+  };
+};
 
-export default Layout;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Layout);
