@@ -1,7 +1,10 @@
 /* eslint-disable */
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Card, Image, ListGroup, Col } from "react-bootstrap";
 import * as actions from "../store/actions/index";
+import CompanyInfo from "../components/companyInfo";
+import CompanyNews from '../components/companyNews';
 
 const NewsItem = ({ datetime, headline, source, url, summary }) => {
   return (
@@ -38,69 +41,50 @@ class StockDetail extends Component {
     const {
       match: {
         params: { symbol }
-      },
-      loadQuotesForSymbol,loadNewsForSymbol
+      }
     } = this.props;
-    console.log(symbol);
-    loadQuotesForSymbol(symbol);
-    loadNewsForSymbol(symbol);
+    this.loadSymbol(symbol);
   }
 
   componentDidUpdate(prevProps) {
     const {
       match: {
         params: { symbol }
-      },
-      loadQuotesForSymbol, loadNewsForSymbol
+      }
     } = this.props;
     if (prevProps.match.params.symbol !== symbol) {
-      loadQuotesForSymbol(symbol);
-      loadNewsForSymbol(symbol);
+      this.loadSymbol(symbol);
     }
+  }
+
+  loadSymbol(symbol) {
+    const {
+      loadQuotesForSymbol,
+      loadNewsForSymbol,
+      loadLogoForSymbol
+    } = this.props;
+    loadQuotesForSymbol(symbol);
+    loadNewsForSymbol(symbol);
+    loadLogoForSymbol(symbol);
   }
 
   render() {
     const {
-      symbol, // AAPL
-      companyName, // Apple Inc.
-      primaryExchange, // Nasdaq Global Select
-      latestPrice, // 169.48
-      latestSource, // Close
-      week52High, // 176.24
-      week52Low, // 108.25
-      logo,news
+      symbol,
+      companyName,
+      primaryExchange,
+      latestPrice,
+      latestSource,
+      week52High,
+      week52Low,
+      logo,
+      news
     } = this.props;
-
+    console.log(logo);
     return (
       <React.Fragment>
-        <div className="card">
-          <div className="card-body d-flex flex-wrap">
-            <img className="p-2" src={logo} alt="" />
-            <h2 className="card-title p-2">
-              <strong>
-                {symbol} - {companyName}
-              </strong>
-            </h2>
-          </div>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <strong>{latestSource}</strong>
-              <span className="text-primary">{latestPrice}</span>
-            </li>
-            <li className="list-group-item">
-              <strong>Week 52 High</strong>
-              <span className="text-success">{week52High}</span>
-            </li>
-            <li className="list-group-item">
-              <strong>Week 52 Low</strong>
-              <span className="text-danger">{week52Low}</span>
-            </li>
-            <li className="list-group-item">
-              <strong>Exchange</strong> {primaryExchange}
-            </li>
-          </ul>
-        </div>
-        <NewsList news={news} />
+        <CompanyInfo />
+        <CompanyNews news={news} />
       </React.Fragment>
     );
   }
@@ -109,7 +93,8 @@ class StockDetail extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     loadQuotesForSymbol: symbol => dispatch(actions.getSymbolQuotes(symbol)),
-    loadNewsForSymbol: symbol => dispatch(actions.getSymbolNews(symbol))
+    loadNewsForSymbol: symbol => dispatch(actions.getSymbolNews(symbol)),
+    loadLogoForSymbol: symbol => dispatch(actions.getSymbolLogo(symbol))
   };
 };
 
@@ -122,9 +107,9 @@ export function mapStateToProps(state) {
       latestPrice,
       latestSource,
       week52High,
-      week52Low,
-      logo
+      week52Low
     },
+    logo,
     news
   } = state.stockDetail;
   return {

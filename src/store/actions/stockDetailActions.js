@@ -25,18 +25,6 @@ export const fetchSymbolChart = () => {
   };
 };
 
-export const fetchSymbolTrades = () => {
-  return {
-    type: constants.GET_SYMBOL_TRADES
-  };
-};
-
-export const fetchSymbolBook = () => {
-  return {
-    type: constants.GET_SYMBOL_BOOK
-  };
-};
-
 export const fetchSymbolCompanyInfo = () => {
   return {
     type: constants.GET_SYMBOL_COMPANY_INFO
@@ -77,20 +65,6 @@ export const setSymbolChart = chart => {
   };
 };
 
-export const setSymbolTrades = trades => {
-  return {
-    type: constants.SET_SYMBOL_TRADES,
-    trades
-  };
-};
-
-export const setSymbolBook = book => {
-  return {
-    type: constants.SET_SYMBOL_BOOK,
-    book
-  };
-};
-
 export const setSymbolCompanyInfo = companyInfo => {
   return {
     type: constants.SET_SYMBOL_COMPANY_INFO,
@@ -113,7 +87,6 @@ export const setStockSymbol = stockSymbol => {
 };
 
 export const getSymbolQuotes = (symbol) => {
-  console.log(symbol);
   return dispatch => {
     dispatch(fetchSymbolQuotes());
     iexGet.quotesForSymbol(symbol).then(res => dispatch(setSymbolQuotes(res)));
@@ -123,7 +96,7 @@ export const getSymbolQuotes = (symbol) => {
 export const getSymbolLogo = (symbol) => {
   return dispatch => {
     dispatch(fetchSymbolLogo());
-    iexGet.logoForSymbol(symbol).then(res => dispatch(setSymbolLogo(res)));
+    iexGet.logoForSymbol(symbol).then(res => dispatch(setSymbolLogo(res.url)));
   };
 };
 
@@ -138,20 +111,6 @@ export const getSymbolChart = (symbol, range) => {
   return dispatch => {
     dispatch(fetchSymbolChart());
     iexGet.chartForSymbol(symbol).then(res => dispatch(setSymbolChart(res)));
-  };
-};
-
-export const getSymbolTrades = (symbol) => {
-  return dispatch => {
-    dispatch(fetchSymbolTrades());
-    iexGet.tradesForSymbol(symbol).then(res => dispatch(setSymbolTrades(res)));
-  };
-};
-
-export const getSymbolBook = (symbol) => {
-  return dispatch => {
-    dispatch(fetchSymbolBook());
-    iexGet.bookForSymbol(symbol).then(res => dispatch(setSymbolBook(res)));
   };
 };
 

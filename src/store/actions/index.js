@@ -12,8 +12,6 @@ export {
   getSymbolLogo,
   getSymbolNews,
   getSymbolChart,
-  getSymbolTrades,
-  getSymbolBook,
   getSymbolCompanyInfo,
   getSymbolPrice,
   setStockSymbol

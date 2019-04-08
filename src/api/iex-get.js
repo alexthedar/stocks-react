@@ -101,6 +101,6 @@ export const lastData = symbol => {
   const url = symbol ? `/tops/last?symbols=${symbol}` : `/tops/last`;
   return api
     .get(url)
-    .then(res => sortByKey(res.data, "time"))
+    .then(res => res.data.reverse())
     .catch(error => throwErr(error));
 };

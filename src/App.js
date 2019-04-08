@@ -12,16 +12,15 @@ const asyncStockDetail = asyncComponent(() => {
 });
 
 class App extends Component {
-  componentDidMount(){
-    const {getRefSymbols} = this.props;
+  componentDidMount() {
+    const { getRefSymbols } = this.props;
     getRefSymbols();
   }
   render() {
     let routes = (
       <Switch>
-        <Route path="/market/:chart" component={MarketTable} />
         <Route path="/stock/:symbol" component={asyncStockDetail} />
-        <Route exact path="/" component={() => <Redirect to="/market/tops" /> } />
+        <Route exact path="/" component={MarketTable} />
         <Redirect to="/" />
       </Switch>
     );

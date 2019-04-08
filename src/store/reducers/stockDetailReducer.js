@@ -6,8 +6,6 @@ const initialState = {
   logo: null,
   news: [],
   chart: [],
-  trades: [],
-  book: [],
   companyInfo: [],
   price: null,
   stockSymbol: '',
@@ -24,12 +22,6 @@ const setSymbolNews = (state, action) =>
 
 const setSymbolChart = (state, action) =>
   updateObject(state, { chart: action.chart });
-
-const setSymbolTrades = (state, action) =>
-  updateObject(state, { trades: action.trades });
-
-const setSymbolBook = (state, action) =>
-  updateObject(state, { book: action.book });
 
 const setSymbolCompanyInfo = (state, action) =>
   updateObject(state, { companyInfo: action.companyInfo });
@@ -50,10 +42,6 @@ const reducer = (state = initialState, action) => {
       return setSymbolNews(state, action);
     case constants.SET_SYMBOL_CHART:
       return setSymbolChart(state, action);
-    case constants.SET_SYMBOL_TRADES:
-      return setSymbolTrades(state, action);
-    case constants.SET_SYMBOL_BOOK:
-      return setSymbolBook(state, action);
     case constants.SET_SYMBOL_COMPANY_INFO:
       return setSymbolCompanyInfo(state, action);
     case constants.SET_SYMBOL_PRICE:

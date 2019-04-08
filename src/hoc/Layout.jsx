@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import SearchForm from "../components/Search";
 
 const Layout = props => {
@@ -13,15 +13,10 @@ const Layout = props => {
         sticky="top"
       >
         <Container>
-          {/* <Navbar.Brand href="/">Home</Navbar.Brand> */}
+          <Navbar.Brand href="/">Market</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              <NavDropdown title="Market" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/market/tops">Tops</NavDropdown.Item>
-                <NavDropdown.Item href="/market/last">Lasts</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
+            <Nav className="mr-auto" />
             <SearchForm />
           </Navbar.Collapse>
         </Container>

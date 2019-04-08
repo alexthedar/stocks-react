@@ -13,28 +13,15 @@ const columnsTops = [
   { id: "lastSaleSize", header: "Last Sale Size" }
 ];
 
-const columnsLast = [
-  { id: "symbol", header: "Symbol" },
-  { id: "price", header: "Price" },
-  { id: "size", header: "Size" },
-  { id: "time", header: "Time" }
-];
 const tableRow = (columns, data) =>
-  columns.map(column => {
-    let cellData = data[column.id];
-    if(column.id === 'time'){
-      cellData = new Date(data[column.id]).toLocaleTimeString('en-US');
-    }
-  return <td key={column.id}>{cellData}</td>
-});
+  columns.map(column => <td key={column.id}>{data[column.id]}</td>);
 
 const tableHeader = columns =>
   columns.map(column => <th key={column.id}>{column.header}</th>);
 
 class MarketTable extends Component {
   componentDidMount() {
-    const { loadLast, loadTops } = this.props;
-    loadLast();
+    const { loadTops } = this.props;
     loadTops();
   }
 
@@ -44,33 +31,23 @@ class MarketTable extends Component {
     history.push(`/stock/${symbol}`);
   }
   render() {
-    const {
-      match: {
-        params: { chart }
-      }
-    } = this.props;
-
-    const { marketLast, marketTops } = this.props;
-    const columns = chart === "tops" ? columnsTops : columnsLast;
-    const data = chart === "tops" ? marketTops : marketLast;
-    const title =
-      chart === "tops"
-        ? "Top 100 Best Quoted Bids & Offers"
-        : "Last 100 Stocks Executions on IEX";
+    const { marketTops } = this.props;
     return (
       <React.Fragment>
-        <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>{title}</h3>
+        <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>
+          Top 100 Best Quoted Bids & Offers
+        </h3>
         <Table striped bordered hover>
           <thead>
-            <tr>{tableHeader(columns)}</tr>
+            <tr>{tableHeader(columnsTops)}</tr>
           </thead>
           <tbody>
             {// eslint-disable-next-line array-callback-return
-            data.map((row, idx) => {
+            marketTops.map((row, idx) => {
               while (idx < 100) {
                 return (
                   <tr onClick={() => this.handleClick(row.symbol)} key={idx}>
-                    {tableRow(columns, row)}
+                    {tableRow(columnsTops, row)}
                   </tr>
                 );
               }
@@ -85,17 +62,13 @@ class MarketTable extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     loadTops: () => dispatch(actions.getMarketTops()),
-    loadLast: () => dispatch(actions.getMarketLast()),
     setStockSymbol: symbol => dispatch(actions.setStockSymbol(symbol))
   };
 };
 
 export function mapStateToProps(state) {
-  const { marketLast, marketTops } = state.market;
-  return {
-    marketLast,
-    marketTops
-  };
+  const { marketTops } = state.market;
+  return { marketTops };
 }
 
 export default connect(
