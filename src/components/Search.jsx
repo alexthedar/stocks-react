@@ -47,10 +47,11 @@ class SearchForm extends Component {
               labelKey="symbol"
               onChange={this.handleSelect}
               options={this.props.refSymbolTypeAhead}
+              placeholder="Enter Stock Symbol"
             />
             <InputGroup.Append>
-              <Button variant="outline-secondary" type="submit">
-                Get Stock
+              <Button variant="info" type="submit">
+                Get Info
               </Button>
             </InputGroup.Append>
           </InputGroup>

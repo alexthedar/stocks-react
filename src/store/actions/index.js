@@ -1,22 +1,15 @@
 export {
   fetchMarketTop,
-  fetchMarketLast,
   setMarketTopData,
-  setMarketLastData,
-  getMarketTops,
-  getMarketLast
+  getMarketTops
 } from "./marketActions";
 
 export {
   getSymbolQuotes,
   getSymbolLogo,
   getSymbolNews,
-  getSymbolChart,
   getSymbolCompanyInfo,
-  getSymbolPrice,
   setStockSymbol
 } from "./stockDetailActions";
 
-export {
-  getRefSymbols
-} from './searchActions';
+export { getRefSymbols } from "./searchActions";

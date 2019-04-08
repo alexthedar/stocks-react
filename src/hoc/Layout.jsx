@@ -21,7 +21,7 @@ const Layout = props => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <main style={{ paddingTop: "1.5rem" }}>
+      <main style={{ paddingTop: "1.5rem", marginBottom: "1.5rem" }}>
         <Container>{props.children}</Container>
       </main>
     </div>
