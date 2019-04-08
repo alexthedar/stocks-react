@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import * as actions from "../store/actions/index";
 
@@ -31,9 +32,11 @@ class SearchForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { setStockSymbol } = this.props;
+    const { setStockSymbol, history } = this.props;
     setStockSymbol(this.state.searchText);
+    history.push(`/stock/${this.state.searchText}`);
   }
+
   render() {
     return (
       <React.Fragment>
@@ -71,4 +74,4 @@ export function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SearchForm);
+)(withRouter(SearchForm));

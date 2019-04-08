@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Table } from "react-bootstrap";
-
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
 
@@ -34,6 +33,12 @@ class MarketTable extends Component {
     loadLast();
     loadTops();
   }
+
+  handleClick(symbol){
+    const {setStockSymbol, history} = this.props;
+    setStockSymbol(symbol);
+    history.push(`/stock/${symbol}`)
+  }
   render() {
     const { marketLast, marketTops } = this.props;
     const columns = marketTops.length ? columnsTops : columnsLast;
@@ -48,7 +53,7 @@ class MarketTable extends Component {
             marketLast.map((row, idx) => {
               while (idx < 100) {
                 return (
-                  <tr onClick={() => console.log(row.symbol)} key={idx}>
+                  <tr onClick={() => this.handleClick(row.symbol)} key={idx}>
                     {tableRow(columns, row)}
                   </tr>
                 );
@@ -64,7 +69,8 @@ class MarketTable extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     loadTops: () => dispatch(actions.getMarketTops()),
-    loadLast: () => dispatch(actions.getMarketLast())
+    loadLast: () => dispatch(actions.getMarketLast()),
+    setStockSymbol: symbol => dispatch(actions.setStockSymbol(symbol))
   };
 };
 
