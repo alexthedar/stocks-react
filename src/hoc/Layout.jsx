@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Navbar,
-  Container,
-  Nav
-} from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import SearchForm from "../components/Search";
 
 const Layout = props => {
@@ -11,16 +7,21 @@ const Layout = props => {
     <div>
       <Navbar
         collapseOnSelect
-        expand="lg"
+        expand="sm"
         bg="dark"
         variant="dark"
         sticky="top"
       >
         <Container>
-          <Navbar.Brand href="/">Market</Navbar.Brand>
+          {/* <Navbar.Brand href="/">Home</Navbar.Brand> */}
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto" />
+            <Nav className="mr-auto">
+              <NavDropdown title="Market" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/market/tops">Tops</NavDropdown.Item>
+                <NavDropdown.Item href="/market/last">Lasts</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
             <SearchForm />
           </Navbar.Collapse>
         </Container>

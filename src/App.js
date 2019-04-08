@@ -19,9 +19,9 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        {/* <Route path="/market" component={MarketTable} /> */}
+        <Route path="/market/:chart" component={MarketTable} />
         <Route path="/stock/:symbol" component={asyncStockDetail} />
-        <Route exact path="/" component={MarketTable} />
+        <Route exact path="/" component={() => <Redirect to="/market/tops" /> } />
         <Redirect to="/" />
       </Switch>
     );
