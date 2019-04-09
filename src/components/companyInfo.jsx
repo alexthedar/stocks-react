@@ -20,7 +20,12 @@ const CompanyInfo = ({
     <Card.Body>
       <Card.Title>
         <h3 style={{ textAlign: "center", paddingBottom: "1rem" }}>
-          <a style={{ textDecoration: "none" }} href={website} target="_blank">
+          <a
+            style={{ textDecoration: "none" }}
+            href={website}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {symbol}
           </a>
         </h3>

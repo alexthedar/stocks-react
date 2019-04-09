@@ -1,7 +1,7 @@
 import * as constants from "../constants";
 import { updateObject } from "../../shared-utils";
 
-const initialState = {
+export const initialState = {
   quotes: [],
   logo: null,
   news: [],
@@ -24,7 +24,7 @@ const setSymbolCompanyInfo = (state, action) =>
 const setStockSymbol = (state, action) =>
   updateObject(state, { stockSymbol: action.stockSymbol });
 
-const reducer = (state = initialState, action) => {
+const stockDetailReducer = (state = initialState, action) => {
   switch (action.type) {
     case constants.SET_SYMBOL_QUOTES:
       return setSymbolQuotes(state, action);
@@ -41,4 +41,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default stockDetailReducer;

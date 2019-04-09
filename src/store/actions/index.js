@@ -9,7 +9,15 @@ export {
   getSymbolLogo,
   getSymbolNews,
   getSymbolCompanyInfo,
-  setStockSymbol
+  setStockSymbol,
+  fetchSymbolQuotes,
+  fetchSymbolLogo,
+  fetchSymbolNews,
+  fetchSymbolCompanyInfo,
+  setSymbolQuotes,
+  setSymbolLogo,
+  setSymbolNews,
+  setSymbolCompanyInfo
 } from "./stockDetailActions";
 
-export { getRefSymbols } from "./searchActions";
+export { getRefSymbols, fetchRefSymbols, setRefSymbols } from "./searchActions";
