@@ -1,15 +1,20 @@
 import { expect } from "chai";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import fakeStore from '../../__mocks__/fakeStore';
+import * as iexGet from "../../../api/iex-get";
 import * as constants from "../../constants";
 import * as actions from "../index";
-import * as iexGet from "../../api/iex-get";
 
 const mockStore = configureStore([thunk]);
-const store = mockStore(fakeStore);
+const store = mockStore({
+  market: {
+    marketTops: []
+  }
+});
 
-describe("app action creators", () => {
+jest.mock("../../../api/iex-get");
+
+describe("marketActions creators", () => {
   let expectedResult;
   let actualResult;
 
@@ -17,23 +22,35 @@ describe("app action creators", () => {
     store.clearActions();
   });
 
-  jest.mock(iexGet);
-
   describe("fetchMarketTop action creator", () => {
     it("should create an action to fetch Market Top data", () => {
       actualResult = actions.fetchMarketTop();
       expectedResult = {
-        type: constants.fetchMarketTop
+        type: constants.GET_MARKET_TOP
       };
       expect(actualResult).to.deep.equal(expectedResult);
     });
   });
 
   describe("setMarketTopData action creator", () => {
-    it("should create an action to set Market top Data", () => {
-      actualResult = actions.setMarketTopData();
+    it("should create an action to set Market top data", () => {
+      const marketTops = ["test"];
+      actualResult = actions.setMarketTopData(marketTops);
       expectedResult = {
-        type: constants.setMarketTopData
+        type: constants.SET_MARKET_TOP,
+        marketTops
+      };
+      expect(actualResult).to.deep.equal(expectedResult);
+    });
+  });
+
+  describe("setMarketTopDataFailure action creator", () => {
+    it("should create an action to set Market top error", () => {
+      const error = "error";
+      actualResult = actions.setMarketTopDataFailure(error);
+      expectedResult = {
+        type: constants.SET_MARKET_TOP_FAILURE,
+        error
       };
       expect(actualResult).to.deep.equal(expectedResult);
     });
@@ -41,10 +58,24 @@ describe("app action creators", () => {
 
   describe("getMarketTops action creator", () => {
     it("should set the market tops data in state", () => {
-      iexGet.topsData.mockResolvedValue();
+      iexGet.topsData.mockResolvedValue(["data"]);
+
       return store.dispatch(actions.getMarketTops()).then(() => {
-        expectedResult = store.getActions();
-        actualResult = [actions.fetchMarketTop, actions.setMarketTopData()];
+        actualResult = store.getActions();
+        expectedResult = [
+          actions.fetchMarketTop(),
+          actions.setMarketTopData(["data"])
+        ];
+        return expect(actualResult).to.deep.equal(expectedResult);
+      });
+    });
+
+    it("should trigger failure actions creator if rejected", () => {
+      iexGet.topsData.mockRejectedValue("error");
+
+      return store.dispatch(actions.getMarketTops()).then(() => {
+        actualResult = store.getActions();
+        expectedResult = [actions.setMarketTopDataFailure("error")];
         return expect(actualResult).to.deep.equal(expectedResult);
       });
     });

@@ -14,11 +14,19 @@ export const setMarketTopData = marketTops => {
   };
 };
 
-export const getMarketTops = () => {
-  return dispatch => {
-    iexGet.topsData().then(res => {
-      dispatch(fetchMarketTop());
-      return dispatch(setMarketTopData(res));
-    });
+export function setMarketTopDataFailure(error) {
+  return {
+    type: constants.SET_MARKET_TOP_FAILURE,
+    error
   };
+}
+
+export const getMarketTops = () => {
+  return dispatch =>
+    Promise.resolve(iexGet.topsData())
+      .then(res => {
+        dispatch(fetchMarketTop());
+        return dispatch(setMarketTopData(res));
+      })
+      .catch(error => dispatch(setMarketTopDataFailure(error)));
 };

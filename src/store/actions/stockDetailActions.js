@@ -60,33 +60,50 @@ export const setStockSymbol = stockSymbol => {
   };
 };
 
-export const getSymbolQuotes = (symbol) => {
-  return dispatch => {
-    dispatch(fetchSymbolQuotes());
-    iexGet.quotesForSymbol(symbol).then(res => dispatch(setSymbolQuotes(res)));
+export const setSymbolFailure = error => {
+  return {
+    type: constants.SET_STOCK_SYMBOL_FAILURE,
+    error
   };
 };
 
-export const getSymbolLogo = (symbol) => {
-  return dispatch => {
-    dispatch(fetchSymbolLogo());
-    iexGet.logoForSymbol(symbol).then(res => dispatch(setSymbolLogo(res.url)));
-  };
+export const getSymbolQuotes = symbol => {
+  return dispatch =>
+    Promise.resolve(iexGet.quotesForSymbol(symbol))
+      .then(res => {
+        dispatch(fetchSymbolQuotes());
+        return dispatch(setSymbolQuotes(res));
+      })
+      .catch(error => dispatch(setSymbolFailure(error)));
 };
 
-export const getSymbolNews = (symbol) => {
-  return dispatch => {
-    dispatch(fetchSymbolNews());
-    iexGet.recentNewsForSymbol(symbol).then(res => dispatch(setSymbolNews(res)));
-  };
+export const getSymbolLogo = symbol => {
+  return dispatch =>
+    Promise.resolve(iexGet.logoForSymbol(symbol))
+      .then(res => {
+        dispatch(fetchSymbolLogo());
+        return dispatch(setSymbolLogo(res.url));
+      })
+      .catch(error => dispatch(setSymbolFailure(error)));
 };
 
-export const getSymbolCompanyInfo = (symbol) => {
-  return dispatch => {
-    dispatch(fetchSymbolCompanyInfo());
-    iexGet
-      .companyInfoForSymbol(symbol)
-      .then(res => dispatch(setSymbolCompanyInfo(res)));
-  };
+export const getSymbolNews = symbol => {
+  return dispatch =>
+    Promise.resolve(iexGet.recentNewsForSymbol(symbol))
+      .then(res => {
+        dispatch(fetchSymbolNews());
+        return dispatch(setSymbolNews(res));
+      })
+      .catch(error => dispatch(setSymbolFailure(error)));
+};
+
+export const getSymbolCompanyInfo = symbol => {
+  return dispatch =>
+    Promise.resolve(iexGet.companyInfoForSymbol(symbol))
+      .then(res => {
+        dispatch(fetchSymbolCompanyInfo());
+        return dispatch(setSymbolCompanyInfo(res));
+      })
+      .catch(error => dispatch(setSymbolFailure(error)));
 };
 

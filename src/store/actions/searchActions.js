@@ -1,7 +1,7 @@
 import * as constants from "../constants";
 import * as iexGet from "../../api/iex-get";
 
-export const extractNameAndSymbols = iexRefData => {
+const extractNameAndSymbols = iexRefData => {
   return iexRefData.map(({ symbol }) => symbol);
 };
 
@@ -18,11 +18,19 @@ export const setRefSymbols = refSymbols => {
   };
 };
 
-export const getRefSymbols = () => {
-  return dispatch => {
-    dispatch(fetchRefSymbols());
-    iexGet.refDataSymbols().then(res => {
-      return dispatch(setRefSymbols(extractNameAndSymbols(res)));
-    });
+export const setRefSymbolsFailure = error => {
+  return {
+    type: constants.SET_REF_SYMBOLS_FAILURE,
+    error
   };
+};
+
+export const getRefSymbols = () => {
+  return dispatch =>
+    Promise.resolve(iexGet.refDataSymbols())
+      .then(res => {
+        dispatch(fetchRefSymbols());
+        return dispatch(setRefSymbols(extractNameAndSymbols(res)));
+      })
+      .catch(error => dispatch(setRefSymbolsFailure(error)));
 };

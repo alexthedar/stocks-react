@@ -1,20 +1,15 @@
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: "https://api.iextrading.com/1.0"
-});
-
-const throwErr = err => new Error(err);
+const baseURL = "https://api.iextrading.com/1.0";
 
 //
 // reference
 //
 
 export const refDataSymbols = () => {
-  return api
-    .get(`/ref-data/symbols`)
-    .then(res => res.data)
-    .catch(error => throwErr(error));
+  const url = `${baseURL}/ref-data/symbols`;
+  return fetch(url)
+    .then(res => res.json())
+    .then(json => Promise.resolve(json))
+    .catch(error => Promise.reject(error));
 };
 
 //
@@ -22,31 +17,38 @@ export const refDataSymbols = () => {
 //
 
 export const quotesForSymbol = symbol => {
-  return api
-    .get(`/stock/${symbol}/quote`)
-    .then(res => res.data)
-    .catch(error => throwErr(error));
+  const url = `${baseURL}/stock/${symbol}/quote`;
+  return fetch(url)
+    .then(res => res.json())
+    .then(json => Promise.resolve(json))
+    .catch(error => Promise.reject(error));
 };
 
 export const logoForSymbol = symbol => {
-  return api
-    .get(`/stock/${symbol}/logo`)
-    .then(res => res.data)
-    .catch(error => throwErr(error));
+  const url = `${baseURL}/stock/${symbol}/logo`;
+
+  return fetch(url)
+    .then(res => res.json())
+    .then(json => Promise.resolve(json))
+    .catch(error => Promise.reject(error));
 };
 
 export const recentNewsForSymbol = symbol => {
-  return api
-    .get(`/stock/${symbol}/news`)
-    .then(res => res.data)
-    .catch(error => throwErr(error));
+  const url = `${baseURL}/stock/${symbol}/news`;
+
+  return fetch(url)
+    .then(res => res.json())
+    .then(json => Promise.resolve(json))
+    .catch(error => Promise.reject(error));
 };
 
 export const companyInfoForSymbol = symbol => {
-  return api
-    .get(`/stock/${symbol}/company`)
-    .then(res => res.data)
-    .catch(error => throwErr(error));
+  const url = `${baseURL}/stock/${symbol}/company`;
+
+  return fetch(url)
+    .then(res => res.json())
+    .then(json => Promise.resolve(json))
+    .catch(error => Promise.reject(error));
 };
 
 //
@@ -54,9 +56,9 @@ export const companyInfoForSymbol = symbol => {
 //
 
 export const topsData = symbol => {
-  const url = symbol ? `/tops?symbols=${symbol}` : `/tops`;
-  return api
-    .get(url)
-    .then(res => res.data.reverse())
-    .catch(error => throwErr(error));
+  const url = symbol ? `${baseURL}/tops?symbols=${symbol}` : `${baseURL}/tops`;
+  return fetch(url)
+    .then(res => res.json())
+    .then(json => Promise.resolve(json.reverse()))
+    .catch(error => Promise.reject(error));
 };
