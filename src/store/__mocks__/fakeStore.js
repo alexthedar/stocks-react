@@ -1,4 +1,8 @@
 export default {
+  app: {
+    error: '',
+    isFetching: false
+  },
   market: {
     marketTops: [
       {
@@ -66,7 +70,7 @@ export default {
         source: "source",
         summary: "next summary",
         url: "https://url.com"
-      },
+      }
     ],
     quotes: [
       {

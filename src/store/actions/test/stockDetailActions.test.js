@@ -15,6 +15,7 @@ const store = mockStore({
     stockSymbol: ""
   }
 });
+const error = { message: "error" };
 
 jest.mock("../../../api/iex-get");
 
@@ -131,12 +132,9 @@ describe("stockDetail creators", () => {
   // FAILURE
   describe("setSymbolFailure action creator", () => {
     it("should create an action to set symbol data error", () => {
-      const error = "error";
-      actualResult = actions.setSymbolFailure(error);
-      expectedResult = {
-        type: constants.SET_STOCK_SYMBOL_FAILURE,
-        error
-      };
+      store.dispatch(actions.setSymbolFailure(error));
+      actualResult = store.getActions();
+      expectedResult = [actions.setError(error.message)];
       expect(actualResult).to.deep.equal(expectedResult);
     });
   });
@@ -158,11 +156,11 @@ describe("stockDetail creators", () => {
     });
 
     it("should trigger failure actions creator if rejected", () => {
-      iexGet.quotesForSymbol.mockRejectedValue("error");
+      iexGet.quotesForSymbol.mockRejectedValue(error);
 
       return store.dispatch(actions.getSymbolQuotes()).then(() => {
         actualResult = store.getActions();
-        expectedResult = [actions.setSymbolFailure("error")];
+        expectedResult = [actions.setError(error.message)];
         return expect(actualResult).to.deep.equal(expectedResult);
       });
     });
@@ -183,11 +181,11 @@ describe("stockDetail creators", () => {
     });
 
     it("should trigger failure actions creator if rejected", () => {
-      iexGet.logoForSymbol.mockRejectedValue("error");
+      iexGet.logoForSymbol.mockRejectedValue(error);
 
       return store.dispatch(actions.getSymbolLogo()).then(() => {
         actualResult = store.getActions();
-        expectedResult = [actions.setSymbolFailure("error")];
+        expectedResult = [actions.setError(error.message)];
         return expect(actualResult).to.deep.equal(expectedResult);
       });
     });
@@ -208,11 +206,11 @@ describe("stockDetail creators", () => {
     });
 
     it("should trigger failure actions creator if rejected", () => {
-      iexGet.recentNewsForSymbol.mockRejectedValue("error");
+      iexGet.recentNewsForSymbol.mockRejectedValue(error);
 
       return store.dispatch(actions.getSymbolNews()).then(() => {
         actualResult = store.getActions();
-        expectedResult = [actions.setSymbolFailure("error")];
+        expectedResult = [actions.setError(error.message)];
         return expect(actualResult).to.deep.equal(expectedResult);
       });
     });
@@ -233,11 +231,11 @@ describe("stockDetail creators", () => {
     });
 
     it("should trigger failure actions creator if rejected", () => {
-      iexGet.companyInfoForSymbol.mockRejectedValue("error");
+      iexGet.companyInfoForSymbol.mockRejectedValue(error);
 
       return store.dispatch(actions.getSymbolCompanyInfo()).then(() => {
         actualResult = store.getActions();
-        expectedResult = [actions.setSymbolFailure("error")];
+        expectedResult = [actions.setError(error.message)];
         return expect(actualResult).to.deep.equal(expectedResult);
       });
     });

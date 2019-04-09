@@ -1,4 +1,5 @@
 import * as constants from "../constants";
+import * as actions from "./index";
 import * as iexGet from "../../api/iex-get";
 
 export const fetchSymbolQuotes = () => {
@@ -61,9 +62,8 @@ export const setStockSymbol = stockSymbol => {
 };
 
 export const setSymbolFailure = error => {
-  return {
-    type: constants.SET_STOCK_SYMBOL_FAILURE,
-    error
+  return dispatch => {
+    return dispatch(actions.setError(error.message));
   };
 };
 
@@ -106,4 +106,3 @@ export const getSymbolCompanyInfo = symbol => {
       })
       .catch(error => dispatch(setSymbolFailure(error)));
 };
-

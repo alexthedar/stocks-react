@@ -30,7 +30,7 @@ export class MarketTable extends Component {
     setStockSymbol(symbol);
     history.push(`/stock/${symbol}`);
   }
-  
+
   render() {
     const { marketTops } = this.props;
     return (

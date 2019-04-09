@@ -2,7 +2,7 @@ export {
   fetchMarketTop,
   setMarketTopData,
   getMarketTops,
-  setMarketTopDataFailure,
+  setMarketTopDataFailure
 } from "./marketActions";
 
 export {
@@ -19,7 +19,14 @@ export {
   setSymbolLogo,
   setSymbolNews,
   setSymbolCompanyInfo,
-  setSymbolFailure,
+  setSymbolFailure
 } from "./stockDetailActions";
 
-export { getRefSymbols, fetchRefSymbols, setRefSymbols, setRefSymbolsFailure } from "./searchActions";
+export {
+  getRefSymbols,
+  fetchRefSymbols,
+  setRefSymbols,
+  setRefSymbolsFailure
+} from "./searchActions";
+
+export { setLoading, setError } from "./appActions";

@@ -11,7 +11,7 @@ const store = mockStore({
     marketTops: []
   }
 });
-
+const error = { message: "error" };
 jest.mock("../../../api/iex-get");
 
 describe("marketActions creators", () => {
@@ -46,12 +46,9 @@ describe("marketActions creators", () => {
 
   describe("setMarketTopDataFailure action creator", () => {
     it("should create an action to set Market top error", () => {
-      const error = "error";
-      actualResult = actions.setMarketTopDataFailure(error);
-      expectedResult = {
-        type: constants.SET_MARKET_TOP_FAILURE,
-        error
-      };
+      store.dispatch(actions.setRefSymbolsFailure(error));
+      actualResult = store.getActions();
+      expectedResult = [actions.setError(error.message)];
       expect(actualResult).to.deep.equal(expectedResult);
     });
   });
@@ -71,11 +68,11 @@ describe("marketActions creators", () => {
     });
 
     it("should trigger failure actions creator if rejected", () => {
-      iexGet.topsData.mockRejectedValue("error");
+      iexGet.topsData.mockRejectedValue(error);
 
       return store.dispatch(actions.getMarketTops()).then(() => {
         actualResult = store.getActions();
-        expectedResult = [actions.setMarketTopDataFailure("error")];
+        expectedResult = [actions.setError(error.message)];
         return expect(actualResult).to.deep.equal(expectedResult);
       });
     });

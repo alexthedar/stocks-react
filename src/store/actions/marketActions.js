@@ -1,4 +1,5 @@
 import * as constants from "../constants";
+import * as actions from "./index";
 import * as iexGet from "../../api/iex-get";
 
 export const fetchMarketTop = () => {
@@ -15,9 +16,8 @@ export const setMarketTopData = marketTops => {
 };
 
 export function setMarketTopDataFailure(error) {
-  return {
-    type: constants.SET_MARKET_TOP_FAILURE,
-    error
+  return dispatch => {
+    return dispatch(actions.setError(error.message));
   };
 }
 
@@ -26,7 +26,7 @@ export const getMarketTops = () => {
     Promise.resolve(iexGet.topsData())
       .then(res => {
         dispatch(fetchMarketTop());
-        return dispatch(setMarketTopData(res));
+        return dispatch(setMarketTopData(res.reverse()));
       })
       .catch(error => dispatch(setMarketTopDataFailure(error)));
 };

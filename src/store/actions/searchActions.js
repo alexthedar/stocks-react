@@ -1,4 +1,5 @@
 import * as constants from "../constants";
+import * as actions from "./index";
 import * as iexGet from "../../api/iex-get";
 
 const extractNameAndSymbols = iexRefData => {
@@ -19,9 +20,8 @@ export const setRefSymbols = refSymbols => {
 };
 
 export const setRefSymbolsFailure = error => {
-  return {
-    type: constants.SET_REF_SYMBOLS_FAILURE,
-    error
+  return dispatch => {
+    return dispatch(actions.setError(error.message));
   };
 };
 
