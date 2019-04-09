@@ -19,7 +19,7 @@ const tableRow = (columns, data) =>
 const tableHeader = columns =>
   columns.map(column => <th key={column.id}>{column.header}</th>);
 
-class MarketTable extends Component {
+export class MarketTable extends Component {
   componentDidMount() {
     const { loadTops } = this.props;
     loadTops();
@@ -30,6 +30,7 @@ class MarketTable extends Component {
     setStockSymbol(symbol);
     history.push(`/stock/${symbol}`);
   }
+  
   render() {
     const { marketTops } = this.props;
     return (

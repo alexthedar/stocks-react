@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card, Image, ListGroup, Col, Row } from "react-bootstrap";
 
-const CompanyInfo = ({
+export const CompanyInfo = ({
   symbol,
   companyName,
   primaryExchange,

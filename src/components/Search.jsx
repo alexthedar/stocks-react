@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import * as actions from "../store/actions/index";
 
-class SearchForm extends Component {
+export class SearchForm extends Component {
   constructor(props) {
     super(props);
 

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card } from "react-bootstrap";
 
-const NewsItem = ({ datetime, headline, source, url, summary }) => {
+export const NewsItem = ({ datetime, headline, source, url, summary }) => {
   return (
     <Card style={{ width: "100%", marginBottom: "1rem" }}>
       <a
@@ -25,7 +25,7 @@ const NewsItem = ({ datetime, headline, source, url, summary }) => {
   );
 };
 
-const NewsList = ({ news, companyName }) => {
+export const NewsList = ({ news, companyName }) => {
   const articles = news.length
     ? news.map((newsItem, index) => (
         <NewsItem key={"news" + index} {...newsItem} />

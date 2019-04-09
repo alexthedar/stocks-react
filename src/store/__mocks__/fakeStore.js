@@ -50,17 +50,23 @@ export default {
     logo: "www.test.com",
     news: [
       {
-        headline: "headline",
+        datetime: "2019-04-09T16:27:44-04:00",
+        headline: "a headline",
+        image: "https://image.com",
+        related: "tags,1,2,3",
         source: "source",
-        summary: "summary",
-        url: "url"
+        summary: "a summary",
+        url: "https://url.com"
       },
       {
-        headline: "headline1",
-        source: "source1",
-        summary: "summary1",
-        url: "url1"
-      }
+        datetime: "2019-05-09T16:27:44-04:00",
+        headline: "next headline",
+        image: "https://image.com",
+        related: "tags,1,2,3",
+        source: "source",
+        summary: "next summary",
+        url: "https://url.com"
+      },
     ],
     quotes: [
       {

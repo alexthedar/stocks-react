@@ -4,7 +4,7 @@ import * as actions from "../store/actions/index";
 import CompanyInfo from "../components/companyInfo";
 import CompanyNews from "../components/companyNews";
 
-class StockDetail extends Component {
+export class StockDetail extends Component {
   componentDidMount() {
     const {
       match: {
