@@ -2,6 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card } from "react-bootstrap";
 
+const getDateFromEpoch = utcSeconds => {
+  let d = new Date(utcSeconds);
+  return d.toUTCString();
+};
+
 export const NewsItem = ({ datetime, headline, source, url, summary }) => {
   return (
     <Card style={{ width: "100%", marginBottom: "1rem" }}>
@@ -15,10 +20,17 @@ export const NewsItem = ({ datetime, headline, source, url, summary }) => {
           <strong style={{ color: "#007bff" }}>{headline}</strong>
         </Card.Header>
         <Card.Body>{summary}</Card.Body>
-        <Card.Footer>
-          <small>
-            Source: <em>{source}</em>, {datetime.substring(0, 10)}
-          </small>
+        <Card.Footer
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <div>
+            <small>
+              Source: <em>{source}</em>,
+            </small>
+          </div>
+          <div>
+            <small>{getDateFromEpoch(datetime)}</small>
+          </div>
         </Card.Footer>
       </a>
     </Card>
@@ -26,11 +38,15 @@ export const NewsItem = ({ datetime, headline, source, url, summary }) => {
 };
 
 export const NewsList = ({ news, companyName }) => {
-  const articles = news.length
-    ? news.map((newsItem, index) => (
-        <NewsItem key={"news" + index} {...newsItem} />
-      ))
-    : null;
+  console.log("TCL: NewsList -> news", news.length);
+  const articles =
+    news.length > 0
+      ? news.map((newsItem, index) => {
+          console.log("TCL: NewsList -> newsItem", newsItem);
+
+          return <NewsItem key={"news" + index} {...newsItem} />;
+        })
+      : null;
   return (
     <div
       style={{
@@ -43,7 +59,9 @@ export const NewsList = ({ news, companyName }) => {
       {news.length ? (
         <h3>Recent News</h3>
       ) : (
-        <h4 style={{textAlign: 'center'}}>No Recent News Found For {companyName}</h4>
+        <h4 style={{ textAlign: "center" }}>
+          No Recent News Found For {companyName}
+        </h4>
       )}
 
       {articles}

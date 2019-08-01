@@ -25,6 +25,7 @@ export const getMarketTops = () => {
   return dispatch =>
     Promise.resolve(iexGet.topsData())
       .then(res => {
+        console.log("TCL: getMarketTops -> res", res);
         dispatch(fetchMarketTop());
         return dispatch(setMarketTopData(res.reverse()));
       })
