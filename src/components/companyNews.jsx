@@ -1,11 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card } from "react-bootstrap";
-
-const getDateFromEpoch = utcSeconds => {
-  let d = new Date(utcSeconds);
-  return d.toUTCString();
-};
+import { getDateFromEpoch } from "../shared-utils";
 
 export const NewsItem = ({ datetime, headline, source, url, summary }) => {
   return (

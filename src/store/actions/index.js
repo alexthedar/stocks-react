@@ -1,9 +1,4 @@
-export {
-  fetchMarketTop,
-  setMarketTopData,
-  getMarketTops,
-  setMarketTopDataFailure
-} from "./marketActions";
+export { fetchMarket, setMarketData, getMarket } from "./marketActions";
 
 export {
   getSymbolQuotes,
@@ -18,15 +13,9 @@ export {
   setSymbolQuotes,
   setSymbolLogo,
   setSymbolNews,
-  setSymbolCompanyInfo,
-  setSymbolFailure
+  setSymbolCompanyInfo
 } from "./stockDetailActions";
 
-export {
-  getRefSymbols,
-  fetchRefSymbols,
-  setRefSymbols,
-  setRefSymbolsFailure
-} from "./searchActions";
+export { getRefSymbols, fetchRefSymbols, setRefSymbols } from "./searchActions";
 
 export { setLoading, setError } from "./appActions";

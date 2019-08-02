@@ -1,60 +1,101 @@
 import React, { Component } from "react";
-import { Table } from "react-bootstrap";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginator from "react-bootstrap-table2-paginator";
+import { dataWithUTC } from "../store/selectors/index";
 
-const columnsTops = [
-  { id: "symbol", header: "Symbol" },
-  { id: "askPrice", header: "Ask Price" },
-  { id: "askSize", header: "Ask Size" },
-  { id: "bidPrice", header: "Bid Price" },
-  { id: "bidSize", header: "Bid Size" },
-  { id: "lastSalePrice", header: "Last Sale Price" },
-  { id: "lastSaleSize", header: "Last Sale Size" }
+const sortCarets = (order, column) => {
+  if (!order) return <span />;
+  else if (order === "asc")
+    return (
+      <small>
+        &nbsp;&nbsp;&nbsp;<font color="red">&#9650;</font>
+      </small>
+    );
+  else if (order === "desc")
+    return (
+      <small>
+        &nbsp;&nbsp;&nbsp;<font color="red">&#9660;</font>
+      </small>
+    );
+  return null;
+};
+
+const priceFormatter = (cell, row) => <small>{cell}</small>;
+
+const columns = [
+  {
+    dataField: "symbol",
+    text: "Symbol",
+    sort: true,
+    sortCaret: (order, column) => sortCarets(order, column)
+  },
+  {
+    dataField: "price",
+    text: "Price",
+    sort: true,
+    sortCaret: (order, column) => sortCarets(order, column)
+  },
+  {
+    dataField: "size",
+    text: "Size",
+    sort: true,
+    sortCaret: (order, column) => sortCarets(order, column)
+  },
+  {
+    dataField: "time",
+    text: "Time",
+    sort: true,
+    sortCaret: (order, column) => sortCarets(order, column),
+    formatter: priceFormatter
+  }
 ];
 
-const tableRow = (columns, data) =>
-  columns.map(column => <td key={column.id}>{data[column.id]}</td>);
-
-const tableHeader = columns =>
-  columns.map(column => <th key={column.id}>{column.header}</th>);
+const Table = ({ handleRowClick, data }) => {
+  const rowEvents = {
+    onClick: (e, row) => {
+      handleRowClick(e, row);
+    }
+  };
+  return (
+    <BootstrapTable
+      keyField="symbol"
+      data={data}
+      columns={columns}
+      striped
+      hover
+      condensed
+      bordered={false}
+      rowEvents={rowEvents}
+      loading={true}
+      pagination={paginator()}
+    />
+  );
+};
 
 export class MarketTable extends Component {
   componentDidMount() {
-    const { loadTops } = this.props;
-    loadTops();
+    const { loadMarket } = this.props;
+    loadMarket();
   }
 
-  handleClick(symbol) {
+  handleRowClick = (e, row) => {
+    e.preventDefault();
     const { setStockSymbol, history } = this.props;
-    setStockSymbol(symbol);
-    history.push(`/stock/${symbol}`);
-  }
+    setStockSymbol(row.symbol);
+    history.push(`/stock/${row.symbol}`);
+  };
 
   render() {
-    const { marketTops } = this.props;
+    const { list } = this.props;
+
     return (
       <React.Fragment>
         <h3 style={{ textAlign: "center", marginBottom: "1rem" }}>
-          Top 100 Best Quoted Bids & Offers
+          Lastest Trades on IEX
         </h3>
-        <Table striped bordered hover>
-          <thead>
-            <tr>{tableHeader(columnsTops)}</tr>
-          </thead>
-          <tbody>
-            {// eslint-disable-next-line array-callback-return
-            marketTops.map((row, idx) => {
-              while (idx < 100) {
-                return (
-                  <tr onClick={() => this.handleClick(row.symbol)} key={idx}>
-                    {tableRow(columnsTops, row)}
-                  </tr>
-                );
-              }
-            })}
-          </tbody>
-        </Table>
+        <Table handleRowClick={this.handleRowClick} data={list} />
       </React.Fragment>
     );
   }
@@ -62,14 +103,14 @@ export class MarketTable extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadTops: () => dispatch(actions.getMarketTops()),
+    loadMarket: () => dispatch(actions.getMarket()),
     setStockSymbol: symbol => dispatch(actions.setStockSymbol(symbol))
   };
 };
 
 export function mapStateToProps(state) {
-  const { marketTops } = state.market;
-  return { marketTops };
+  // const { list } = state.market;
+  return { list: dataWithUTC(state) };
 }
 
 export default connect(

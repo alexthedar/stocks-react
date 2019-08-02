@@ -2,16 +2,16 @@ import * as constants from "../constants";
 import { updateObject } from "../../shared-utils";
 
 export const initialState = {
-  marketTops: [],
+  list: []
 };
 
-const setMarketTops = (state, action) =>
-  updateObject(state, { marketTops: action.marketTops });
+const setMarket = (state, action) =>
+  updateObject(state, { list: action.market });
 
 const marketReducer = (state = initialState, action) => {
   switch (action.type) {
-    case constants.SET_MARKET_TOP:
-      return setMarketTops(state, action);
+    case constants.SET_MARKET:
+      return setMarket(state, action);
     default:
       return state;
   }

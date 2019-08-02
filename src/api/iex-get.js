@@ -52,10 +52,8 @@ export const companyInfoForSymbol = symbol => {
 // market
 //
 
-export const topsData = symbol => {
-  const url = symbol
-    ? `${baseURL}/tops${apiKey}&symbols=${symbol}`
-    : `${baseURL}/tops${apiKey}`;
+export const topsData = () => {
+  const url = `${baseURL}/tops/last${apiKey}`;
 
   return fetch(url)
     .then(res => Promise.resolve(res.json()))

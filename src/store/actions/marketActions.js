@@ -2,31 +2,25 @@ import * as constants from "../constants";
 import * as actions from "./index";
 import * as iexGet from "../../api/iex-get";
 
-export const fetchMarketTop = () => {
+export const fetchMarket = () => {
   return {
-    type: constants.GET_MARKET_TOP
+    type: constants.GET_MARKET
   };
 };
 
-export const setMarketTopData = marketTops => {
+export const setMarketData = market => {
   return {
-    type: constants.SET_MARKET_TOP,
-    marketTops
+    type: constants.SET_MARKET,
+    market
   };
 };
 
-export function setMarketTopDataFailure(error) {
-  return dispatch => {
-    return dispatch(actions.setError(error.message));
-  };
-}
-
-export const getMarketTops = () => {
+export const getMarket = () => {
   return dispatch =>
     Promise.resolve(iexGet.topsData())
       .then(res => {
-        dispatch(fetchMarketTop());
-        return dispatch(setMarketTopData(res.reverse()));
+        dispatch(fetchMarket());
+        return dispatch(setMarketData(res));
       })
-      .catch(error => dispatch(setMarketTopDataFailure(error)));
+      .catch(error => dispatch(actions.setError(error.message)));
 };
