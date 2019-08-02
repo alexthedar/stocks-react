@@ -38,14 +38,11 @@ export const NewsItem = ({ datetime, headline, source, url, summary }) => {
 };
 
 export const NewsList = ({ news, companyName }) => {
-  console.log("TCL: NewsList -> news", news.length);
   const articles =
     news.length > 0
-      ? news.map((newsItem, index) => {
-          console.log("TCL: NewsList -> newsItem", newsItem);
-
-          return <NewsItem key={"news" + index} {...newsItem} />;
-        })
+      ? news.map((newsItem, index) => (
+          <NewsItem key={"news" + index} {...newsItem} />
+        ))
       : null;
   return (
     <div

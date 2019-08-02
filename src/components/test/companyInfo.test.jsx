@@ -1,8 +1,8 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import {CompanyInfo, mapStateToProps } from "../companyInfo";
-import { Card, Col } from "react-bootstrap";
+import { CompanyInfo, mapStateToProps } from "../companyInfo";
+import { Card, Col, Row, Image, ListGroupItem } from "react-bootstrap";
 import fakeData from "../../store/__mocks__/fakeStore";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -26,13 +26,13 @@ describe("CompanyInfo Component", () => {
 
   it("has h3 & NewsItem components when news present", () => {
     expect(wrapper.find(Card)).toHaveLength(1);
-    expect(wrapper.find('CardBody')).toHaveLength(1);
-    expect(wrapper.find('CardTitle')).toHaveLength(1);
-    expect(wrapper.find('Bootstrap(ListGroupItem)')).toHaveLength(2);
-    expect(wrapper.find('Bootstrap(Image)')).toHaveLength(1);
-    expect(wrapper.find('h3')).toHaveLength(1);
+    expect(wrapper.find(Card.Body)).toHaveLength(1);
+    expect(wrapper.find(Card.Title)).toHaveLength(1);
+    expect(wrapper.find(ListGroupItem)).toHaveLength(2);
+    expect(wrapper.find(Image)).toHaveLength(1);
+    expect(wrapper.find("h3")).toHaveLength(1);
     expect(wrapper.find(Col)).toHaveLength(7);
-    expect(wrapper.find('Bootstrap(Row)')).toHaveLength(2);
+    expect(wrapper.find(Row)).toHaveLength(2);
   });
 
   it("should have a mapStateToProps function", () => {
