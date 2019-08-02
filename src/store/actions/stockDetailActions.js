@@ -61,12 +61,6 @@ export const setStockSymbol = stockSymbol => {
   };
 };
 
-export const setSymbolFailure = error => {
-  return dispatch => {
-    return dispatch(actions.setError(error.message));
-  };
-};
-
 export const getSymbolQuotes = symbol => {
   return dispatch =>
     Promise.resolve(iexGet.quotesForSymbol(symbol))
@@ -74,7 +68,7 @@ export const getSymbolQuotes = symbol => {
         dispatch(fetchSymbolQuotes());
         return dispatch(setSymbolQuotes(res));
       })
-      .catch(error => dispatch(setSymbolFailure(error)));
+      .catch(error => dispatch(actions.setError(error.message)));
 };
 
 export const getSymbolLogo = symbol => {
@@ -84,7 +78,7 @@ export const getSymbolLogo = symbol => {
         dispatch(fetchSymbolLogo());
         return dispatch(setSymbolLogo(res.url));
       })
-      .catch(error => dispatch(setSymbolFailure(error)));
+      .catch(error => dispatch(actions.setError(error.message)));
 };
 
 export const getSymbolNews = symbol => {
@@ -94,7 +88,7 @@ export const getSymbolNews = symbol => {
         dispatch(fetchSymbolNews());
         return dispatch(setSymbolNews(res));
       })
-      .catch(error => dispatch(setSymbolFailure(error)));
+      .catch(error => dispatch(actions.setError(error.message)));
 };
 
 export const getSymbolCompanyInfo = symbol => {
@@ -104,5 +98,5 @@ export const getSymbolCompanyInfo = symbol => {
         dispatch(fetchSymbolCompanyInfo());
         return dispatch(setSymbolCompanyInfo(res));
       })
-      .catch(error => dispatch(setSymbolFailure(error)));
+      .catch(error => dispatch(actions.setError(error.message)));
 };

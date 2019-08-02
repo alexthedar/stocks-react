@@ -109,7 +109,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export function mapStateToProps(state) {
-  // const { list } = state.market;
   return { list: dataWithUTC(state) };
 }
 

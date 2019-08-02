@@ -24,9 +24,9 @@ describe("marketActions creators", () => {
 
   describe("fetchMarketTop action creator", () => {
     it("should create an action to fetch Market Top data", () => {
-      actualResult = actions.fetchMarketTop();
+      actualResult = actions.fetchMarket();
       expectedResult = {
-        type: constants.GET_MARKET_TOP
+        type: constants.GET_MARKET
       };
       expect(actualResult).to.deep.equal(expectedResult);
     });
@@ -34,21 +34,12 @@ describe("marketActions creators", () => {
 
   describe("setMarketTopData action creator", () => {
     it("should create an action to set Market top data", () => {
-      const marketTops = ["test"];
-      actualResult = actions.setMarketTopData(marketTops);
+      const market = ["test"];
+      actualResult = actions.setMarketData(market);
       expectedResult = {
-        type: constants.SET_MARKET_TOP,
-        marketTops
+        type: constants.SET_MARKET,
+        market
       };
-      expect(actualResult).to.deep.equal(expectedResult);
-    });
-  });
-
-  describe("setMarketTopDataFailure action creator", () => {
-    it("should create an action to set Market top error", () => {
-      store.dispatch(actions.setRefSymbolsFailure(error));
-      actualResult = store.getActions();
-      expectedResult = [actions.setError(error.message)];
       expect(actualResult).to.deep.equal(expectedResult);
     });
   });
@@ -57,11 +48,11 @@ describe("marketActions creators", () => {
     it("should set the market tops data in state", () => {
       iexGet.topsData.mockResolvedValue(["data"]);
 
-      return store.dispatch(actions.getMarketTops()).then(() => {
+      return store.dispatch(actions.getMarket()).then(() => {
         actualResult = store.getActions();
         expectedResult = [
-          actions.fetchMarketTop(),
-          actions.setMarketTopData(["data"])
+          actions.fetchMarket(),
+          actions.setMarketData(["data"])
         ];
         return expect(actualResult).to.deep.equal(expectedResult);
       });
@@ -70,7 +61,7 @@ describe("marketActions creators", () => {
     it("should trigger failure actions creator if rejected", () => {
       iexGet.topsData.mockRejectedValue(error);
 
-      return store.dispatch(actions.getMarketTops()).then(() => {
+      return store.dispatch(actions.getMarket()).then(() => {
         actualResult = store.getActions();
         expectedResult = [actions.setError(error.message)];
         return expect(actualResult).to.deep.equal(expectedResult);

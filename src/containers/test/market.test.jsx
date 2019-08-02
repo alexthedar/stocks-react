@@ -14,13 +14,13 @@ describe("MarketTable Component", () => {
 
   const props = {
     ...fakeProps.market,
-    loadTops: jest.fn(),
+    loadMarket: jest.fn(),
     setStockSymbol: jest.fn(),
     history: { push: jest.fn() }
   };
 
   beforeEach(() => {
-    props.loadTops.mockClear();
+    props.loadMarket.mockClear();
     props.setStockSymbol.mockClear();
     wrapper = shallow(<MarketTable {...props} />);
   });
@@ -29,8 +29,8 @@ describe("MarketTable Component", () => {
     expect(wrapper.exists()).to.equal(true);
   });
 
-  it("dispatches loadTops on mount", () => {
-    expect(props.loadTops.mock.calls.length).to.equal(1);
+  it("dispatches loadMarket on mount", () => {
+    expect(props.loadMarket.mock.calls.length).to.equal(1);
   });
 
   it("dispatches setStockSymbol if item clicked", () => {
@@ -51,12 +51,12 @@ describe("MarketTable Component", () => {
 
   it("should have a mapStateToProps function", () => {
     const state = {
-      market: { marketTops: ["test"] }
+      market: { list: ["test"] }
     };
 
     const actualResult = mapStateToProps(state);
     const expectedResult = {
-      marketTops: ["test"]
+      list: ["test"]
     };
 
     expect(actualResult).to.deep.equal(expectedResult);

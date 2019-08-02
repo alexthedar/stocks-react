@@ -44,16 +44,6 @@ describe("marketActions creators", () => {
     });
   });
 
-  describe("setRefSymbolsFailure action creator", () => {
-    it("should create an action to set stock symbols data error", () => {
-      const error = "error";
-      store.dispatch(actions.setRefSymbolsFailure(error));
-      actualResult = store.getActions();
-      expectedResult = [actions.setError(error.message)];
-      expect(actualResult).to.deep.equal(expectedResult);
-    });
-  });
-
   describe("getRefSymbols action creator", () => {
     it("should set the ref symbols data in state", () => {
       iexGet.refDataSymbols.mockResolvedValue([{ symbol: "A" }]);

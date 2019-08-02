@@ -9,16 +9,16 @@ describe("search reducer", () => {
 
   it("should return the initial state", () => {
     expect(marketReducer(undefined, {})).to.deep.equal({
-      marketTops: []
+      list: []
     });
   });
 
   it("should react to SET_MARKET_TOP action", () => {
-    action = actions.setMarketTopData(["test"]);
+    action = actions.setMarketData(["test"]);
     actualResult = marketReducer(initialState, action);
     expectedResult = {
       ...initialState,
-      marketTops: ["test"]
+      list: ["test"]
     };
     expect(actualResult).to.deep.equal(expectedResult);
   });

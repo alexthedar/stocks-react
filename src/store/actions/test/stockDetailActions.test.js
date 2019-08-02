@@ -129,16 +129,6 @@ describe("stockDetail creators", () => {
     });
   });
 
-  // FAILURE
-  describe("setSymbolFailure action creator", () => {
-    it("should create an action to set symbol data error", () => {
-      store.dispatch(actions.setSymbolFailure(error));
-      actualResult = store.getActions();
-      expectedResult = [actions.setError(error.message)];
-      expect(actualResult).to.deep.equal(expectedResult);
-    });
-  });
-
   // GET
   describe("getSymbolQuotes action creator", () => {
     it("should set the quotes data in state", () => {

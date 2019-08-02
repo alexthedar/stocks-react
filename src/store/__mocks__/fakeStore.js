@@ -1,10 +1,10 @@
 export default {
   app: {
-    error: '',
+    error: "",
     isFetching: false
   },
   market: {
-    marketTops: [
+    list: [
       {
         askPrice: 1,
         askSize: 2,
