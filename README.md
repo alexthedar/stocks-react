@@ -15,6 +15,20 @@ npm run start
 npm run test
 ```
 
+## Other npm commands
+
+```
+npm run start:logger
+```
+
+Starts app with redux logging in the console.
+
+```
+npm run test:coverage
+```
+
+Runs tests with coverage report at finish.
+
 ### Capabilities
 
 - App loads latest trades from IEX
