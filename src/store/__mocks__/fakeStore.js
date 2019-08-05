@@ -6,34 +6,22 @@ export default {
   market: {
     list: [
       {
-        askPrice: 1,
-        askSize: 2,
-        bidPrice: 3,
-        bidSize: 4,
-        lastSalePrice: 5,
-        lastSaleSize: 6,
-        lastSaleTime: 7,
-        lastUpdated: 8,
-        marketPercent: 9,
-        sector: "sector",
-        securityType: "security",
-        symbol: "SYMBOL",
-        volume: 10
+        symbol: "SNAP",
+        price: 111.76,
+        size: 5,
+        time: 1480446905681
       },
       {
-        askPrice: 11,
-        askSize: 21,
-        bidPrice: 31,
-        bidSize: 41,
-        lastSalePrice: 51,
-        lastSaleSize: 61,
-        lastSaleTime: 71,
-        lastUpdated: 81,
-        marketPercent: 91,
-        sector: "sector1",
-        securityType: "security1",
-        symbol: "TEST",
-        volume: 101
+        symbol: "FB",
+        price: 121.41,
+        size: 100,
+        time: 1480446908666
+      },
+      {
+        symbol: "AIG+",
+        price: 21.52,
+        size: 100,
+        time: 1480446206461
       }
     ]
   },
@@ -54,7 +42,7 @@ export default {
     logo: "www.test.com",
     news: [
       {
-        datetime: "2019-04-09T16:27:44-04:00",
+        datetime: "2019-04-1565020521:27:44-04:00",
         headline: "a headline",
         image: "https://image.com",
         related: "tags,1,2,3",

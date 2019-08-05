@@ -52,7 +52,7 @@ const columns = [
   }
 ];
 
-const Table = ({ handleRowClick, data }) => {
+export const Table = ({ handleRowClick, data }) => {
   const rowEvents = {
     onClick: (e, row) => {
       handleRowClick(e, row);
