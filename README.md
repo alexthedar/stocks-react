@@ -15,7 +15,7 @@ npm run start
 npm run test
 ```
 
-## Other npm commands
+### Other npm commands
 
 ```
 npm run start:logger
@@ -52,3 +52,8 @@ Runs tests with coverage report at finish.
 - React-bootstrap-table2 was used for table
 - Typeahead was used for typeahead input
 - Testing uses Jest, Enzyme, chai
+
+#### Note:
+
+.env.development.local has been removed from the .gitignore only for the purposes of this challenge.
+Current coverage examples for some files are unacceptable for a production app
